@@ -54,9 +54,7 @@ contract boxETH is ERC20, AccessControl {
     }
 
     function burnFrom(address account, uint256 amount) external {
-        require(allowance(account, _msgSender()) - amount >= 0, "burn amount exceeds allowance");
-        uint256 newAllowance = allowance(account, _msgSender());
-        _approve(account, _msgSender(), newAllowance);
+        _spendAllowance(account, _msgSender(), amount);
         _burn(account, amount);
     }
 }
